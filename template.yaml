@@ -1,0 +1,94 @@
+# Metadatos de la plantilla para el catálogo de NoExpertise.
+id: ayuntamiento-pueblo
+nombre: Ayuntamiento y pueblo
+descripcion: "Web institucional a todo color para ayuntamientos y pueblos: trámites, bandos, agenda, qué ver y servicios."
+sectores:
+  - { id: ayuntamiento, nombre: Ayuntamiento }
+  - { id: pueblo, nombre: Pueblo }
+  - { id: turismo-local, nombre: Turismo local }
+  - { id: oficina-turismo, nombre: Oficina de turismo }
+  - { id: mancomunidad, nombre: Mancomunidad }
+secciones:
+  - { id: hero, nombre: Portada }
+  - { id: noticias, nombre: Actualidad }
+  - { id: tramites, nombre: Trámites }
+  - { id: agenda, nombre: Agenda }
+  - { id: pueblo, nombre: El pueblo }
+  - { id: que-ver, nombre: Qué ver }
+  - { id: servicios, nombre: Servicios municipales }
+  - { id: horario, nombre: Horario de atención }
+  - { id: preguntas, nombre: Preguntas frecuentes }
+  - { id: contacto, nombre: Contacto }
+estilo: institucional
+plan_minimo: presencia
+version: 1.0.0
+base: astrowind
+demo_url: https://demo-plantilla-ayuntamiento-pueblo.noexpertise.com
+activa: true
+orden: 420
+
+# Asistente de puesta en marcha (NoExpertise): un paso por pantalla. Rutas del site sin índices;
+# tipos: texto y lista (la IA propone), datos, fotos, eleccion (colores y logo) y repaso.
+asistente:
+  - id: negocio
+    titulo: "Tu municipio"
+    pregunta: "¿Cómo se llama tu ayuntamiento o pueblo y qué lo hace especial?"
+    ayuda: "Dónde está, cómo es y a quién va la web: vecinos, visitantes o los dos."
+    tipo: texto
+    campos: [nombre, eslogan, seo.titulo, seo.descripcion, secciones.hero.antetitulo, secciones.hero.titulo, secciones.hero.texto, secciones.pueblo.titulo, secciones.pueblo.texto]
+  - id: contacto
+    titulo: "Cómo os encuentran"
+    pregunta: "¿Dónde está el Ayuntamiento y cómo os pueden llamar o escribir?"
+    ayuda: "Solo lo que quieras que vean los vecinos. Lo que dejes vacío no sale en tu web."
+    tipo: datos
+    campos: [contacto.telefono, contacto.whatsapp, contacto.email, contacto.direccion, contacto.horario, redes.instagram, redes.facebook]
+  - id: tramites
+    titulo: "Trámites"
+    pregunta: "¿Qué trámites se pueden hacer en el Ayuntamiento o en la sede electrónica? Uno por línea."
+    ayuda: "Padrón, licencias, impuestos, registro, reservas… Los iconos los cambias luego en Contenido."
+    tipo: texto
+    campos: [secciones.tramites.titulo, secciones.tramites.texto, secciones.tramites.items]
+  - id: servicios
+    titulo: "Servicios y horario"
+    pregunta: "¿Qué servicios tiene el pueblo y en qué horario atiende el Ayuntamiento?"
+    ayuda: "Consultorio, escuela, biblioteca, transporte, recogida de basuras… y los días y horas de la oficina."
+    tipo: texto
+    campos: [secciones.servicios.titulo, secciones.servicios.texto, secciones.servicios.items, secciones.horario.titulo, secciones.horario.texto]
+  - id: noticias
+    titulo: "Bandos y noticias"
+    pregunta: "¿Hay algún bando, aviso o noticia que queráis contar? Uno por línea, con la fecha."
+    ayuda: "Si ahora no tenéis, salta este paso."
+    tipo: lista
+    campos: [secciones.noticias.noticias]
+  - id: agenda
+    titulo: "Agenda"
+    pregunta: "¿Qué fiestas o actividades vienen? Una por línea, con el día, el lugar y la hora."
+    ayuda: "Si lo prefieres, añádelas luego en Contenido."
+    tipo: lista
+    campos: [secciones.agenda.eventos]
+  - id: que-ver
+    titulo: "Qué ver"
+    pregunta: "¿Qué rincones, monumentos o paseos recomendaríais a quien os visita? Uno por línea."
+    ayuda: "Las fotos de cada lugar las pones luego en Contenido."
+    tipo: lista
+    campos: [secciones.que-ver.lugares]
+  - id: preguntas
+    titulo: "Preguntas frecuentes"
+    pregunta: "¿Qué os preguntan más a menudo en la oficina? Escribe cada pregunta y lo que respondéis."
+    ayuda: "Si lo prefieres, añádelas luego en Contenido."
+    tipo: lista
+    campos: [secciones.preguntas.preguntas]
+  - id: fotos
+    titulo: "Tus fotos"
+    pregunta: "Pon una foto del pueblo para la portada y otra para el apartado del pueblo."
+    ayuda: "Sube las tuyas o elige una del banco. Las que no cambies se quedan como están."
+    tipo: fotos
+    campos: [secciones.hero.imagen, secciones.pueblo.imagen]
+  - id: aspecto
+    titulo: "Colores y escudo"
+    pregunta: "Elige los colores de tu web y, si tenéis, el escudo o el logo."
+    tipo: eleccion
+    campos: [colores.primario, colores.acento, logo]
+  - id: repaso
+    titulo: "Repaso"
+    tipo: repaso

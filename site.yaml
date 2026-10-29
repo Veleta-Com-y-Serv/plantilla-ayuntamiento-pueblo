@@ -1,0 +1,161 @@
+# Contenido de la web. Es lo único que rellena la plataforma NoExpertise.
+# Las secciones se muestran en el orden de este fichero. Para ocultar una: activa: false.
+# Apartado nuevo: un id propio (es su ancla, /#id) con `tipo:` = el diseño de otra sección o `texto`.
+# Ejemplo ficticio: un municipio inventado de la Sierra de Albarracín (Teruel); teléfonos y datos de muestra.
+nombre: Ayuntamiento de Peñarrubia
+eslogan: Pueblo de piedra roja y pinares en la Sierra de Albarracín.
+sector: ayuntamiento
+logo: ""          # ruta a una imagen en public/ (p. ej. /logo.svg o el escudo). Vacío = escudo con la inicial.
+colores:
+  primario: "#1e5b3f"
+  acento: "#b5502e"
+  fondo: "#fbf9f4"
+  texto: "#1d2621"
+contacto:
+  telefono: "978 70 41 15"
+  email: info@aytopenarrubia.es
+  direccion: Plaza Mayor 1, 44112 Peñarrubia de Albarracín (Teruel)
+  horario: "Lunes a viernes de 9:00 a 14:00. Martes y jueves, también de 16:30 a 19:00."
+  whatsapp: "+34 678 30 41 15"
+redes:
+  instagram: https://www.instagram.com/
+  facebook: https://www.facebook.com/
+  linkedin: ""
+menu:
+  - { texto: Actualidad, url: "/#noticias" }
+  - { texto: Trámites, url: "/#tramites" }
+  - { texto: Agenda, url: "/#agenda" }
+  - { texto: Qué ver, url: "/#que-ver" }
+  - { texto: Servicios, url: "/#servicios" }
+  - { texto: Contacto, url: "/#contacto" }
+boton_cabecera: { texto: Sede electrónica, url: "/#tramites" }
+seo:
+  titulo: Ayuntamiento de Peñarrubia · Sierra de Albarracín
+  descripcion: "Web municipal de Peñarrubia de Albarracín (Teruel): trámites y sede electrónica, bandos, agenda de fiestas, servicios y qué ver en el pueblo."
+  tipo: GovernmentOffice
+marca_pie: true
+
+secciones:
+  hero:
+    activa: true
+    antetitulo: Sierra de Albarracín · Teruel
+    titulo: Peñarrubia de Albarracín
+    texto: "Un pueblo de piedra roja a 1.180 metros, entre pinares de rodeno. Aquí tienes los trámites, la agenda y todo lo que necesitas para vivirlo o visitarlo."
+    imagen: /fotos/hero.jpg
+    cta: { texto: Trámites y sede, url: "/#tramites" }
+    cta_secundario: { texto: Qué ver, url: "/#que-ver" }
+    items:   # accesos rápidos de la franja bajo la portada
+      - { titulo: Cita previa, texto: Pide hora en el Ayuntamiento, icono: calendario, url: "/#horario" }
+      - { titulo: Bandos y avisos, texto: Lo último del municipio, icono: megafono, url: "/#noticias" }
+      - { titulo: Agenda, texto: "Fiestas, cultura y deporte", icono: estrella, url: "/#agenda" }
+      - { titulo: Turismo, texto: "Rutas, miradores y rincones", icono: montana, url: "/#que-ver" }
+
+  noticias:
+    activa: true
+    antetitulo: Actualidad
+    titulo: Bandos, avisos y noticias del municipio
+    texto: "Lo que pasa en el Ayuntamiento y en el pueblo, contado claro."
+    noticias:
+      - { fecha: 21 oct 2026, categoria: Obras, titulo: Empiezan las obras de mejora de la red de agua en el barrio alto, texto: "Durante tres semanas habrá cortes de agua puntuales entre las 9:00 y las 13:00. Avisaremos con un día de antelación por bando y por WhatsApp.", imagen: /fotos/noticia-1.jpg }
+      - { fecha: 14 oct 2026, categoria: Bando, titulo: Recogida de muebles y enseres el primer lunes de cada mes, texto: "Déjalos junto a tu puerta la noche anterior. Si son muchos, llama antes al Ayuntamiento.", imagen: /fotos/noticia-2.jpg }
+      - { fecha: 2 oct 2026, categoria: Cultura, titulo: La biblioteca amplía su horario de tarde en invierno, texto: "De noviembre a marzo abre también los miércoles de 17:00 a 20:00, con club de lectura cada quince días.", imagen: /fotos/noticia-3.jpg }
+      - { fecha: 25 sep 2026, categoria: Ayudas, titulo: Abierto el plazo de ayudas para rehabilitar fachadas del casco antiguo, texto: "Para tejados, aleros y carpintería exterior con materiales tradicionales. Infórmate en la oficina." }
+
+  tramites:
+    activa: true
+    antetitulo: Sede y trámites
+    titulo: Haz tus gestiones sin esperar colas
+    texto: "Casi todo se puede hacer desde casa con certificado digital o Cl@ve. Si lo prefieres, te ayudamos en la oficina."
+    items:
+      - { titulo: Padrón municipal, texto: "Altas, cambios de domicilio y volantes de empadronamiento.", icono: documento, url: "/#contacto" }
+      - { titulo: Licencias de obra, texto: "Obra menor, obra mayor y declaraciones responsables.", icono: herramienta, url: "/#contacto" }
+      - { titulo: Impuestos y tasas, texto: "IBI, vehículos, agua y basuras: recibos y domiciliaciones.", icono: euro, url: "/#contacto" }
+      - { titulo: Registro general, texto: Presenta instancias y documentos dirigidos al Ayuntamiento., icono: edificio, url: "/#contacto" }
+      - { titulo: Reserva de espacios, texto: "Salón social, pabellón y frontón para vecinos y asociaciones.", icono: llave, url: "/#contacto" }
+      - { titulo: Ayudas y subvenciones, texto: "Rehabilitación, natalidad, emprendimiento y asociaciones.", icono: mano, url: "/#noticias" }
+      - { titulo: Quejas y sugerencias, texto: "Cuéntanos qué podemos mejorar. Te contestamos siempre.", icono: mensaje, url: "/#contacto" }
+      - { titulo: Perfil del contratante, texto: Licitaciones y contratos del Ayuntamiento en curso., icono: maletin, url: "/#contacto" }
+    cta: { texto: Ir a la sede electrónica, url: "/#contacto" }
+
+  agenda:
+    activa: true
+    antetitulo: Agenda
+    titulo: Qué pasa en el pueblo
+    texto: "Fiestas, cultura, deporte y vida de calle. Todas las actividades son gratuitas salvo que se indique."
+    eventos:
+      - { fecha: 8 nov 2026, titulo: Jornada de limpieza del río, lugar: Puente del molino, hora: "10:00", categoria: Medio ambiente }
+      - { fecha: 15 nov 2026, titulo: Matacía tradicional y comida popular, lugar: Plaza Mayor, hora: "11:30", categoria: Tradición }
+      - { fecha: 22 nov 2026, titulo: Cine de otoño para toda la familia, lugar: Salón social, hora: "18:00", categoria: Cultura }
+      - { fecha: 6 dic 2026, titulo: Ruta guiada por los pinares de rodeno, lugar: Salida desde la fuente, hora: "9:30", categoria: Naturaleza }
+      - { fecha: 13 dic 2026, titulo: Mercadillo de Navidad de artesanos de la sierra, lugar: Lavadero cubierto, hora: "11:00 a 19:00", categoria: Comercio }
+    cta: { texto: Proponer una actividad, url: "/#contacto" }
+
+  pueblo:
+    activa: true
+    antetitulo: El pueblo
+    titulo: Piedra roja, pinares y cielo limpio
+    texto: "Peñarrubia nació al abrigo de la peña que le da nombre. Sus casas de piedra rodena, con aleros de madera y rejas de forja, se apiñan alrededor de la iglesia y de la plaza.\n\nHoy somos un pueblo pequeño y vivo: escuela, consultorio, bar, panadería dos días por semana y una asociación cultural que no para. Si quieres venir a vivir, te ayudamos a encontrar casa."
+    imagen: /fotos/pueblo.jpg
+    items:   # datos del pueblo en la franja de color
+      - { titulo: "1.180 m", texto: de altitud }
+      - { titulo: "214", texto: vecinos empadronados }
+      - { titulo: "9 km", texto: hasta Albarracín }
+      - { titulo: "S. XVI", texto: iglesia de San Bartolomé }
+    cta: { texto: Quiero vivir aquí, url: "/#contacto" }
+
+  que-ver:
+    activa: true
+    antetitulo: Qué ver
+    titulo: Un día en Peñarrubia y sus alrededores
+    texto: "Rincones para recorrer a pie, miradores y naturaleza a dos pasos. Pide el plano en la oficina de turismo."
+    lugares:
+      - { nombre: Casco antiguo, texto: "Calles empedradas, casas de entramado y aleros de madera tallada que casi se tocan.", imagen: /fotos/lugar-1.jpg }
+      - { nombre: Iglesia de San Bartolomé, texto: "Torre de piedra rodena y retablo barroco. Visitas los domingos tras la misa.", imagen: /fotos/lugar-2.jpg }
+      - { nombre: Mirador de la Peña Roja, texto: "A diez minutos andando: todo el valle a tus pies, mejor al atardecer.", imagen: /fotos/lugar-3.jpg }
+      - { nombre: Pinares de rodeno, texto: "Senderos señalizados entre pinos y abrigos con pinturas rupestres.", imagen: /fotos/lugar-4.jpg }
+      - { nombre: Fuente y lavadero, texto: "Del siglo XIX, restaurados por los vecinos. Agua fresca todo el año.", imagen: /fotos/lugar-5.jpg }
+      - { nombre: Albarracín, texto: "A 9 km por carretera: murallas, catedral y callejuelas para perderse.", imagen: /fotos/lugar-6.jpg }
+    cta: { texto: Pide el plano del pueblo, url: "/#contacto" }
+
+  servicios:
+    activa: true
+    antetitulo: Servicios municipales
+    titulo: Lo que el Ayuntamiento hace por ti
+    texto: "Servicios para quien vive aquí todo el año y para quien viene en verano."
+    items:
+      - { titulo: Consultorio médico, texto: "Martes y jueves por la mañana. Cita en el centro de salud de la comarca.", icono: cruz }
+      - { titulo: Escuela rural, texto: "Infantil y primaria en el pueblo, con comedor y transporte a secundaria.", icono: nino }
+      - { titulo: Biblioteca y telecentro, texto: "Préstamo de libros, ordenadores y wifi gratis para vecinos.", icono: libro }
+      - { titulo: Pabellón y frontón, texto: "Instalaciones deportivas para vecinos y asociaciones, con reserva previa.", icono: trofeo }
+      - { titulo: Agua y saneamiento, texto: "Avisos de averías y lecturas de contador, todo el año.", icono: gota }
+      - { titulo: Residuos y punto limpio, texto: "Recogida diaria en verano y tres días por semana el resto del año.", icono: reciclaje }
+      - { titulo: Transporte a Teruel, texto: "Autobús de lunes a viernes y servicio a demanda los sábados.", icono: autobus }
+      - { titulo: Mayores y dependencia, texto: "Ayuda y comida a domicilio con los servicios sociales de la comarca.", icono: corazon }
+
+  horario:
+    activa: true
+    antetitulo: Atención al público
+    titulo: Horario del Ayuntamiento
+    texto: "Si vienes por un trámite, pide cita y te atendemos sin esperas. En agosto, solo por las mañanas."
+    horario:
+      - { dia: Lunes a viernes, horas: "9:00 a 14:00" }
+      - { dia: Martes y jueves, horas: "16:30 a 19:00" }
+      - { dia: "Oficina de turismo, sábados y domingos", horas: "10:30 a 14:00" }
+    cta: { texto: Pedir cita previa, url: "/#contacto" }
+
+  preguntas:
+    activa: true
+    antetitulo: Preguntas frecuentes
+    titulo: Lo que más nos preguntan en la oficina
+    preguntas:
+      - { pregunta: "¿Cómo me empadrono en Peñarrubia?", respuesta: "Trae tu DNI y un documento que acredite dónde vives (escritura, contrato de alquiler o autorización del propietario). Se hace en el momento, en la oficina o por la sede electrónica." }
+      - { pregunta: "¿Puedo hacer trámites sin ir al Ayuntamiento?", respuesta: "Sí. Con certificado digital o Cl@ve puedes presentar instancias, pedir volantes y pagar recibos desde la sede electrónica. Si te atascas, llámanos y te guiamos." }
+      - { pregunta: "¿Dónde se aparca para visitar el pueblo?", respuesta: "En el aparcamiento de la entrada, junto a la fuente. El casco antiguo es peatonal salvo para vecinos y carga y descarga." }
+      - { pregunta: "¿Cómo reservo el salón social o el pabellón?", respuesta: "Pídelo en la oficina o por correo con una semana de antelación, indicando el día, la hora y para qué lo necesitas." }
+      - { pregunta: "¿Hay alojamiento en el pueblo?", respuesta: "Sí, casas rurales y apartamentos. En la oficina de turismo te damos la lista y te ayudamos a encontrar plaza en fiestas." }
+
+  contacto:
+    activa: true
+    antetitulo: Contacto
+    titulo: Escríbenos o pásate por la plaza
+    texto: "Para cualquier gestión, duda o aviso de avería. Te contestamos en uno o dos días laborables."

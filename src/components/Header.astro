@@ -1,0 +1,64 @@
+---
+// Cabecera fija a todo el ancho: escudo con la inicial (o el logo) + nombre, menú (site.yaml → menu) y botón.
+// En la portada, si la primera sección es la de portada (hero), va transparente sobre la foto y se vuelve
+// sólida al bajar; en el resto de páginas es sólida y deja su hueco. En móvil, menú plegable (<details>).
+// El aspecto lo da src/styles/global.css (.cabecera--<variante>).
+import { site, seccionesActivas } from '../data/site';
+import type { Enlace } from '../data/site';
+interface Props { variante?: string; cta?: Enlace | null }
+const { variante = 'consistorio', cta = null } = Astro.props;
+const primera = seccionesActivas()[0];
+const disenyoPrimera = primera ? (typeof site.secciones[primera]?.tipo === 'string' ? site.secciones[primera].tipo : primera) : '';
+const transparente = Astro.url.pathname === '/' && disenyoPrimera === 'hero';
+---
+
+<header class={`cabecera cabecera--${variante}`} data-transparente={transparente ? '' : undefined}>
+  <div class="contenedor cabecera-fila">
+    <a href="/" class="marca" aria-label={`${site.nombre}, inicio`}>
+      {
+        site.logo ? (
+          <img src={site.logo} alt={site.nombre} class="marca-logo" width="160" height="40" />
+        ) : (
+          <>
+            <span class="marca-escudo" aria-hidden="true">{site.nombre.replace(/^(ayuntamiento|concello|ajuntament|udala|mancomunidad|comarca)\s+(de\s+(la\s+|los\s+|las\s+)?|del\s+)?/i, '').trim().charAt(0) || site.nombre.trim().charAt(0)}</span>
+            <span class="marca-nombre">{site.nombre}</span>
+          </>
+        )
+      }
+    </a>
+    <nav class="cabecera-nav" aria-label="Menú principal">
+      {site.menu.map((e) => <a href={e.url}>{e.texto}</a>)}
+    </nav>
+    {cta && cta.url && <a href={cta.url} class="btn cabecera-cta">{cta.texto}</a>}
+    {
+      site.menu.length > 0 && (
+        <details class="menu-movil">
+          <summary aria-label="Abrir el menú">
+            <span class="menu-movil-icono" aria-hidden="true" />
+            <span>Menú</span>
+          </summary>
+          <nav class="menu-movil-panel" aria-label="Menú">
+            {site.menu.map((e) => <a href={e.url}>{e.texto}</a>)}
+            {cta && cta.url && <a href={cta.url} class="btn">{cta.texto}</a>}
+          </nav>
+        </details>
+      )
+    }
+  </div>
+</header>
+{!transparente && <div class="cabecera-hueco" aria-hidden="true" />}
+<script is:inline>
+  (function () {
+    document.documentElement.classList.add('js');
+    var c = document.querySelector('.cabecera');
+    if (!c) return;
+    var menu = c.querySelector('.menu-movil');
+    var mirar = function () { c.classList.toggle('solida', window.scrollY > 40 || !!(menu && menu.open)); };
+    document.querySelectorAll('.menu-movil a').forEach(function (a) {
+      a.addEventListener('click', function () { a.closest('details').open = false; });
+    });
+    if (menu) menu.addEventListener('toggle', mirar);
+    window.addEventListener('scroll', mirar, { passive: true });
+    mirar();
+  })();
+</script>

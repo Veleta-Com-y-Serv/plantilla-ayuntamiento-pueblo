@@ -1,0 +1,59 @@
+---
+// Contacto: banda partida 50/50 a todo el ancho. A la izquierda, sobre verde institucional, el titular y los datos
+// de site.yaml → contacto (dirección con enlace al mapa, horario, teléfono, WhatsApp y correo) en grande;
+// a la derecha, sobre fondo claro, el formulario (mailto). En móvil, uno debajo del otro.
+import { seccion, site, tel, mapa, whatsapp } from '../../data/site';
+import Titular from '../ui/Titular.astro';
+import Icono from '../ui/Icono.astro';
+import FormularioContacto from '../ui/FormularioContacto.astro';
+interface Props { id: string }
+const s = seccion(Astro.props.id);
+const c = site.contacto;
+const datos = [
+  c.direccion && { icono: 'mapa', texto: c.direccion, url: mapa(c.direccion), fuera: true },
+  c.telefono && { icono: 'telefono', texto: c.telefono, url: tel(c.telefono), fuera: false },
+  c.whatsapp && { icono: 'whatsapp', texto: c.whatsapp, url: whatsapp(c.whatsapp), fuera: true },
+  c.email && { icono: 'correo', texto: c.email, url: `mailto:${c.email}`, fuera: false },
+  c.horario && { icono: 'reloj', texto: c.horario, url: '', fuera: false },
+].filter(Boolean) as { icono: string; texto: string; url: string; fuera: boolean }[];
+---
+
+{
+  s && (
+    <section id={Astro.props.id} class="grid lg:grid-cols-2">
+      <div class="banda-primario contacto-mitad contacto-mitad--izq">
+        <Titular antetitulo={s.antetitulo} titulo={s.titulo} texto={s.texto} />
+        {datos.length > 0 && (
+          <ul class="border-t border-[var(--c-linea)]">
+            {datos.map((d) => (
+              <li class="flex items-start gap-4 border-b border-[var(--c-linea)] py-4 text-[1.08rem]">
+                <span class="grid h-10 w-10 shrink-0 place-items-center bg-acento text-[var(--c-sobre-acento)]" aria-hidden="true"><Icono nombre={d.icono} tam={20} /></span>
+                <span class="min-w-0 self-center [overflow-wrap:anywhere]">
+                  {d.url ? (
+                    <a href={d.url} rel={d.fuera ? 'noopener' : undefined} target={d.fuera ? '_blank' : undefined} class="underline-offset-4 hover:underline">{d.texto}</a>
+                  ) : (
+                    d.texto
+                  )}
+                </span>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+      <div class="banda-fondo contacto-mitad contacto-mitad--der">
+        <div class="w-full max-w-[38rem]">
+          <FormularioContacto boton="Enviar" asunto={`Consulta desde la web de ${site.nombre}`} />
+        </div>
+      </div>
+    </section>
+  )
+}
+
+<style>
+  .contacto-mitad { padding: var(--ritmo) 1rem; }
+  @media (min-width: 768px) { .contacto-mitad { padding: var(--ritmo-md) 2rem; } }
+  @media (min-width: 1024px) {
+    .contacto-mitad--izq { padding-left: max(2rem, calc((100vw - var(--ancho)) / 2 + 2rem)); padding-right: 4rem; }
+    .contacto-mitad--der { padding-right: max(2rem, calc((100vw - var(--ancho)) / 2 + 2rem)); padding-left: 4rem; display: flex; align-items: center; }
+  }
+</style>

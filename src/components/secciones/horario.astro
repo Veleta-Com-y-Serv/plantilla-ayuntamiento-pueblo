@@ -1,0 +1,59 @@
+---
+// Horario de atención: banda de color de acento a todo el ancho. A la izquierda, título enorme, texto, dirección
+// y teléfono de site.yaml → contacto y el botón de cita (cta); a la derecha, las franjas del horario con las horas
+// en serif grande. Lista `horario: [{dia, horas}]`; sin ella, se usa contacto.horario.
+import { seccion, site, tel, mapa } from '../../data/site';
+import Seccion from '../ui/Seccion.astro';
+import Titular from '../ui/Titular.astro';
+import Icono from '../ui/Icono.astro';
+interface Props { id: string }
+const s = seccion(Astro.props.id);
+const filas = (s?.horario ?? []).filter((h) => h && (h.dia || h.horas));
+const c = site.contacto;
+---
+
+{
+  s && (
+    <Seccion id={Astro.props.id} class="banda-acento">
+      <div class="grid gap-x-16 gap-y-10 lg:grid-cols-2 lg:items-center">
+        <div>
+          <Titular antetitulo={s.antetitulo} titulo={s.titulo} texto={s.texto} class="!mb-8" />
+          <ul class="grid gap-3 text-[1.05rem]">
+            {c.direccion && (
+              <li class="flex gap-3"><Icono nombre="mapa" class="mt-0.5 shrink-0" /><a href={mapa(c.direccion)} rel="noopener" target="_blank" class="underline underline-offset-4">{c.direccion}</a></li>
+            )}
+            {c.telefono && (
+              <li class="flex gap-3"><Icono nombre="telefono" class="mt-0.5 shrink-0" /><a href={tel(c.telefono)} class="font-bold underline underline-offset-4">{c.telefono}</a></li>
+            )}
+          </ul>
+          {(s.cta?.url || s.cta_secundario?.url) && (
+            <div class="mt-9 flex flex-wrap gap-3">
+              {s.cta?.url && <a class="btn" href={s.cta.url}>{s.cta.texto}</a>}
+              {s.cta_secundario?.url && <a class="btn-sec" href={s.cta_secundario.url}>{s.cta_secundario.texto}</a>}
+            </div>
+          )}
+        </div>
+        {filas.length > 0 ? (
+          <dl class="horario border-t-2 border-current">
+            {filas.map((h) => (
+              <div class="horario-fila">
+                <dt class="horario-dia">{h.dia}</dt>
+                <dd class="horario-horas">{h.horas}</dd>
+              </div>
+            ))}
+          </dl>
+        ) : (
+          c.horario && <p class="font-display text-[clamp(1.6rem,3vw,2.4rem)] leading-snug">{c.horario}</p>
+        )}
+      </div>
+    </Seccion>
+  )
+}
+
+<style>
+  .horario-fila { display: grid; gap: .25rem; padding-block: 1.4rem; border-bottom: 1px solid color-mix(in srgb, currentColor 35%, transparent); }
+  @media (min-width: 640px) { .horario-fila { grid-template-columns: 1fr auto; align-items: baseline; gap: 2rem; } }
+  .horario-dia { font-size: .8rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+  .horario-horas { font-family: var(--fuente-titulos); font-weight: 700; font-size: clamp(1.9rem, 4vw, 3rem); line-height: 1.05; }
+  @media (min-width: 640px) { .horario-horas { text-align: right; } }
+</style>

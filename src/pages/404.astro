@@ -1,0 +1,21 @@
+---
+import Base from '../layouts/Base.astro';
+import { site, tel } from '../data/site';
+---
+
+<Base titulo="Página no encontrada">
+  <section class="banda-primario">
+    <div class="contenedor flex min-h-[70svh] flex-col justify-center py-20">
+      <p class="antetitulo">Error 404</p>
+      <h1 class="mt-5 max-w-[16ch] text-[clamp(2.75rem,8vw,6rem)] leading-[.95]">Esta página no existe</h1>
+      <p class="mt-6 max-w-xl text-lg opacity-90">
+        Puede que el enlace esté mal o que la página se haya movido. Desde el inicio encontrarás los trámites, la
+        agenda y el contacto de {site.nombre}.
+      </p>
+      <p class="mt-9 flex flex-wrap gap-3">
+        <a class="btn" href="/">Volver al inicio</a>
+        {site.contacto.telefono && <a class="btn-sec" href={tel(site.contacto.telefono)}>Llamar al {site.contacto.telefono}</a>}
+      </p>
+    </div>
+  </section>
+</Base>

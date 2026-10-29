@@ -1,0 +1,46 @@
+---
+// Servicios municipales: banda clara a todo el ancho; servicios en columnas de periódico (1-2-4) separadas por
+// filetes verticales, con icono en línea, título serif y texto. Cada servicio: {titulo, texto, icono}.
+// Botón opcional (cta). Sin servicios, solo el titular.
+import { seccion } from '../../data/site';
+import Seccion from '../ui/Seccion.astro';
+import Titular from '../ui/Titular.astro';
+import Icono from '../ui/Icono.astro';
+interface Props { id: string }
+const s = seccion(Astro.props.id);
+const items = (s?.items ?? []).filter((it) => it && it.titulo);
+---
+
+{
+  s && (
+    <Seccion id={Astro.props.id} class="banda-fondo">
+      <Titular antetitulo={s.antetitulo} titulo={s.titulo} texto={s.texto} />
+      {items.length > 0 && (
+        <ul class="servicios grid border-b border-[var(--c-linea)] sm:grid-cols-2 sm:gap-y-10 sm:border-b-0 lg:grid-cols-4">
+          {items.map((it) => (
+            <li class="servicio">
+              <span class="servicio-icono text-primario" aria-hidden="true"><Icono nombre={it.icono} tam={40} /></span>
+              <h3 class="text-[1.3rem] sm:mt-4 sm:text-[1.35rem] leading-tight text-primario">
+                {it.url ? <a href={it.url} class="underline-offset-4 hover:underline">{it.titulo}</a> : it.titulo}
+              </h3>
+              {it.texto && <p class="servicio-texto mt-1 text-[.97rem] opacity-80 sm:mt-2">{it.texto}</p>}
+            </li>
+          ))}
+        </ul>
+      )}
+      {s.cta?.url && <a class="btn mt-12" href={s.cta.url}>{s.cta.texto}</a>}
+    </Seccion>
+  )
+}
+
+<style>
+  /* Móvil: filas compactas con el icono a la izquierda; desde 640 px, columnas con filete vertical. */
+  .servicio { display: grid; grid-template-columns: 2.5rem 1fr; column-gap: 1rem; padding: 1.25rem 0; border-top: 1px solid var(--c-linea); }
+  .servicio-icono { grid-row: span 2; }
+  .servicio > :not(.servicio-icono) { grid-column: 2; }
+  @media (min-width: 640px) {
+    .servicios { column-gap: 0; }
+    .servicio { display: block; padding: 1.75rem 1.75rem 0 1.75rem; border-top: 0; border-left: 1px solid var(--c-linea); }
+    .servicio::before { content: ""; display: block; width: 2.5rem; height: 4px; margin-bottom: 1.5rem; background: var(--c-acento); }
+  }
+</style>

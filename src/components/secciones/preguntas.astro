@@ -1,0 +1,44 @@
+---
+// Preguntas frecuentes: banda de piedra a todo el ancho; titular a la izquierda y acordeón nativo <details>
+// a la derecha, con filetes finos y signo + en un cuadrado de color, sin JavaScript.
+// Campos: `preguntas[]` (pregunta, respuesta). Sin preguntas no se pinta.
+// También sirve de diseño para apartados nuevos (`tipo: preguntas`).
+import { seccion } from '../../data/site';
+import Seccion from '../ui/Seccion.astro';
+import Titular from '../ui/Titular.astro';
+interface Props { id: string }
+const s = seccion(Astro.props.id);
+const preguntas = s ? s.preguntas.filter((p) => p && p.pregunta) : [];
+---
+
+{
+  s && preguntas.length > 0 && (
+    <Seccion id={Astro.props.id} class="banda-piedra">
+      <div class="grid gap-x-16 lg:grid-cols-12">
+        <div class="lg:col-span-5">
+          <Titular antetitulo={s.antetitulo} titulo={s.titulo} texto={s.texto} />
+        </div>
+        <div class="border-t-4 border-primario lg:col-span-7">
+          {preguntas.map((p, i) => (
+            <details class="faq border-b border-[var(--c-linea)]" open={i === 0}>
+              <summary class="flex min-h-[3.5rem] items-center justify-between gap-5 py-5 font-display text-[1.25rem] font-bold leading-snug text-primario md:text-[1.4rem]">
+                {p.pregunta}
+                <span class="faq-signo grid h-10 w-10 shrink-0 place-items-center bg-primario text-2xl leading-none text-[var(--c-sobre-primario)]" aria-hidden="true"><span class="faq-mas">+</span></span>
+              </summary>
+              {p.respuesta && <p class="max-w-2xl pb-6 pr-12 text-[1.02rem] opacity-85">{p.respuesta}</p>}
+            </details>
+          ))}
+        </div>
+      </div>
+    </Seccion>
+  )
+}
+
+<style>
+  .faq summary { list-style: none; cursor: pointer; }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq-signo { transition: background-color .2s ease; }
+  .faq-mas { display: block; transition: transform .2s ease; }
+  .faq[open] .faq-signo { background: var(--c-acento); color: var(--c-sobre-acento); }
+  .faq[open] .faq-mas { transform: rotate(45deg); }
+</style>

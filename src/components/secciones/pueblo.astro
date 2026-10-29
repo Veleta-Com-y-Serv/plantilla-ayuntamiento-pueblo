@@ -1,0 +1,57 @@
+---
+// El pueblo: fila 50/50 a todo el ancho con la foto a sangre (toca el borde de la ventana) y el texto al lado;
+// debajo, franja de color de acento con los datos del pueblo (items: titulo = el dato, texto = qué es).
+// Sin foto, el texto ocupa el ancho normal; sin datos, no hay franja. Botón opcional (cta).
+import { seccion, parrafos } from '../../data/site';
+import { altSeccion } from '../../lib/seo';
+import Imagen from '../ui/Imagen.astro';
+interface Props { id: string }
+const s = seccion(Astro.props.id);
+const datos = (s?.items ?? []).filter((it) => it && it.titulo);
+---
+
+{
+  s && (
+    <section id={Astro.props.id} class="banda-fondo">
+      <div class:list={['grid', s.imagen && 'md:grid-cols-2']}>
+        {s.imagen && (
+          <div class="relative min-h-[20rem] sm:min-h-[26rem] md:min-h-[36rem] lg:min-h-[44rem]">
+            <Imagen src={s.imagen} alt={altSeccion(s)} ancho={1200} alto={1400} class="absolute inset-0 h-full w-full object-cover" />
+          </div>
+        )}
+        <div class:list={['flex items-center py-16 md:py-24', s.imagen ? 'px-4 md:px-10 lg:px-16 xl:px-24' : 'contenedor']}>
+          <div class="max-w-[42rem]">
+            {s.antetitulo && <p class="antetitulo">{s.antetitulo}</p>}
+            {s.titulo && <h2 class="titulo-seccion">{s.titulo}</h2>}
+            {s.texto && (
+              <div class="mt-7 space-y-4 text-lg leading-relaxed opacity-90">
+                {parrafos(s.texto).map((p, i) => <p class:list={{ 'pueblo-capitular': i === 0 }}>{p}</p>)}
+              </div>
+            )}
+            {s.cta?.url && <a class="btn mt-9" href={s.cta.url}>{s.cta.texto}</a>}
+          </div>
+        </div>
+      </div>
+      {datos.length > 0 && (
+        <div class="banda-acento">
+          <ul class:list={['contenedor grid grid-cols-2', datos.length >= 4 ? 'sm:grid-cols-4' : datos.length === 3 ? 'sm:grid-cols-3' : '']}>
+            {datos.map((d) => (
+              <li class="dato">
+                <span class="dato-cifra">{d.titulo}</span>
+                {d.texto && <span class="dato-texto">{d.texto}</span>}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </section>
+  )
+}
+
+<style>
+  .pueblo-capitular::first-letter { float: left; font-family: var(--fuente-titulos); font-weight: 700; font-size: 4.2em; line-height: .8; margin: .08em .12em 0 0; color: var(--c-acento); }
+  .dato { display: flex; flex-direction: column; gap: .4rem; padding: 2rem 1rem 2rem 0; }
+  @media (min-width: 768px) { .dato { padding-block: 3rem; } }
+  .dato-cifra { font-family: var(--fuente-titulos); font-weight: 700; font-size: clamp(2.2rem, 5vw, 4.25rem); line-height: 1; }
+  .dato-texto { font-size: .78rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; opacity: .9; }
+</style>

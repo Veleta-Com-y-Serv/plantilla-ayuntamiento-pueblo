@@ -1,0 +1,64 @@
+---
+// Qué ver: banda verde hondo; titular dentro del ancho de lectura y, debajo, mosaico de lugares de borde a borde
+// de la ventana, sin márgenes: el primero grande (2×2 en escritorio) y el resto en rejilla, con el nombre y el texto
+// sobre la foto. Cada lugar: {nombre, texto, imagen}. Sin foto, el lugar va sobre color pleno. Botón opcional (cta).
+import { seccion } from '../../data/site';
+import { altFicha } from '../../lib/seo';
+import Titular from '../ui/Titular.astro';
+import Imagen from '../ui/Imagen.astro';
+interface Props { id: string }
+const s = seccion(Astro.props.id);
+const lugares = (s?.lugares ?? []).filter((l) => l && l.nombre);
+const n = lugares.length;
+// Que la última fila no quede coja: el último lugar se estira lo que haga falta.
+// Tableta (2 columnas): el primero ocupa la fila entera. Escritorio (3 columnas): el primero ocupa 2×2.
+const clases = (i: number) => {
+  if (n === 1) return 'lg:aspect-[21/9]';
+  const c: string[] = [];
+  if (i === 0) c.push('sm:col-span-2 lg:row-span-2 lg:aspect-auto');
+  if (i !== n - 1 || i === 0) return c.join(' ');
+  if ((n - 1) % 2 === 1) c.push('sm:col-span-2');
+  if (n === 2) c.push('lg:col-span-1 lg:row-span-2 lg:aspect-auto');
+  else {
+    const sobra = (n - 3) % 3; // lugares en la última fila de escritorio
+    c.push(sobra === 1 ? 'lg:col-span-3 lg:aspect-[21/9]' : sobra === 2 ? 'lg:col-span-2 lg:aspect-auto' : 'lg:col-span-1');
+  }
+  return c.join(' ');
+};
+---
+
+{
+  s && (
+    <section id={Astro.props.id} class="banda-hondo">
+      <div class="contenedor pb-12 pt-[var(--ritmo)] md:pb-16 md:pt-[var(--ritmo-md)]">
+        <div class="flex flex-wrap items-end justify-between gap-x-10">
+          <Titular antetitulo={s.antetitulo} titulo={s.titulo} texto={s.texto} class="!mb-0" />
+          {s.cta?.url && <a class="btn-sec mt-8" href={s.cta.url}>{s.cta.texto}</a>}
+        </div>
+      </div>
+      {n > 0 && (
+        <ul class:list={['grid grid-cols-1', n > 1 && 'sm:grid-cols-2 lg:grid-cols-3']}>
+          {lugares.map((l, i) => (
+            <li class:list={['lugar relative isolate aspect-[16/10] overflow-hidden sm:aspect-[4/3]', clases(i)]}>
+              {l.imagen && <Imagen src={l.imagen} alt={altFicha(l)} ancho={i === 0 ? 1600 : 900} alto={i === 0 ? 1200 : 675} class="lugar-foto absolute inset-0 -z-20 h-full w-full object-cover" />}
+              <div class="lugar-velo absolute inset-0 -z-10" aria-hidden="true" />
+              <div class="absolute inset-x-0 bottom-0 p-5 text-white md:p-8">
+                <span class="lugar-numero" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+                <h3 class:list={['mt-2 leading-tight', i === 0 && n > 1 ? 'text-[clamp(1.8rem,3.4vw,3rem)]' : 'text-[1.6rem]']}>{l.nombre}</h3>
+                {l.texto && <p class="mt-2 max-w-xl text-[.97rem] leading-snug opacity-90">{l.texto}</p>}
+              </div>
+            </li>
+          ))}
+        </ul>
+      )}
+    </section>
+  )
+}
+
+<style>
+  .lugar { background: color-mix(in srgb, var(--c-acento) 70%, #000); }
+  .lugar-velo { background: linear-gradient(to top, rgb(0 0 0 / .78), rgb(0 0 0 / .25) 55%, rgb(0 0 0 / 0) 80%); }
+  .lugar-foto { transition: transform .6s ease; }
+  .lugar:hover .lugar-foto { transform: scale(1.04); }
+  .lugar-numero { font-size: .75rem; font-weight: 800; letter-spacing: .18em; padding-bottom: .25rem; border-bottom: 3px solid var(--c-acento); }
+</style>

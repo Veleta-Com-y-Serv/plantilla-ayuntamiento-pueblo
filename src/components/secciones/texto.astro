@@ -1,0 +1,53 @@
+---
+// Apartado de texto genérico: antetítulo, título, párrafos, foto opcional, lista y botón.
+// Lo usan los apartados nuevos que pide el cliente (site.yaml: `tipo: texto`). Con foto, fila 50/50 a todo el
+// ancho con la foto a sangre a la derecha; sin foto, banda de piedra con el texto en dos columnas en escritorio.
+import { seccion, parrafos } from '../../data/site';
+import { altSeccion } from '../../lib/seo';
+import Imagen from '../ui/Imagen.astro';
+import Icono from '../ui/Icono.astro';
+interface Props { id: string }
+const s = seccion(Astro.props.id);
+const items = (s?.items ?? []).filter((it) => it && it.titulo);
+---
+
+{
+  s && (
+    <section id={Astro.props.id} class:list={[s.imagen ? 'banda-fondo grid lg:grid-cols-2' : 'banda-piedra']}>
+      <div class:list={['py-[var(--ritmo)] md:py-[var(--ritmo-md)]', s.imagen ? 'px-4 md:px-8 lg:px-16 xl:pl-[max(2rem,calc((100vw_-_var(--ancho))/2_+_2rem))]' : 'contenedor']}>
+        <div class:list={[!s.imagen && 'grid gap-x-16 lg:grid-cols-12']}>
+          <div class:list={[!s.imagen && 'lg:col-span-5']}>
+            {s.antetitulo && <p class="antetitulo">{s.antetitulo}</p>}
+            {s.titulo && <h2 class="titulo-seccion">{s.titulo}</h2>}
+          </div>
+          <div class:list={[!s.imagen && 'lg:col-span-7']}>
+            {s.texto && (
+              <div class="mt-7 max-w-[42rem] space-y-4 text-lg leading-relaxed opacity-90">
+                {parrafos(s.texto).map((p) => <p>{p}</p>)}
+              </div>
+            )}
+            {items.length > 0 && (
+              <ul class="mt-8 border-t border-[var(--c-linea)]">
+                {items.map((it) => (
+                  <li class="flex gap-4 border-b border-[var(--c-linea)] py-4">
+                    <Icono nombre={it.icono} class="mt-0.5 shrink-0 text-acento" tam={22} />
+                    <div>
+                      <p class="font-display text-[1.15rem] font-bold">{it.url ? <a href={it.url} class="hover:underline">{it.titulo}</a> : it.titulo}</p>
+                      {it.texto && <p class="text-[.95rem] opacity-80">{it.texto}</p>}
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            )}
+            {s.cta?.url && <a class="btn mt-9" href={s.cta.url}>{s.cta.texto}</a>}
+          </div>
+        </div>
+      </div>
+      {s.imagen && (
+        <div class="relative min-h-[20rem] sm:min-h-[26rem] lg:order-last lg:min-h-full">
+          <Imagen src={s.imagen} alt={altSeccion(s)} ancho={1200} alto={1000} class="absolute inset-0 h-full w-full object-cover" />
+        </div>
+      )}
+    </section>
+  )
+}

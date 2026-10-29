@@ -1,0 +1,72 @@
+---
+// Agenda municipal: banda de piedra a todo el ancho; titular fijo a la izquierda en escritorio y, a la derecha,
+// las citas como un calendario de pared: día enorme en serif, mes en versalitas, título, lugar y hora.
+// Cada evento: {fecha («15 nov 2026»), titulo, lugar, hora, categoria}. Si la fecha no empieza por el día,
+// se pinta tal cual. Sin eventos, solo el titular.
+import { seccion } from '../../data/site';
+import Seccion from '../ui/Seccion.astro';
+import Titular from '../ui/Titular.astro';
+import Icono from '../ui/Icono.astro';
+interface Props { id: string }
+const s = seccion(Astro.props.id);
+const eventos = (s?.eventos ?? []).filter((e) => e && e.titulo);
+const partes = (fecha?: string) => {
+  const m = String(fecha ?? '').trim().match(/^(\d{1,2})(?:\s+de)?\s+([^\s\d,.]+)\.?(?:\s+(?:de\s+)?(\d{4}))?(.*)$/i);
+  return m ? { dia: m[1], mes: m[2], anio: m[3] ?? '', resto: m[4]?.trim() ?? '' } : null;
+};
+---
+
+{
+  s && (
+    <Seccion id={Astro.props.id} class="banda-piedra">
+      <div class="grid gap-x-16 lg:grid-cols-12">
+        <div class="lg:col-span-4">
+          <div class="lg:sticky lg:top-28">
+            <Titular antetitulo={s.antetitulo} titulo={s.titulo} texto={s.texto} />
+            {s.cta?.url && <a class="btn-sec mb-12" href={s.cta.url}>{s.cta.texto}</a>}
+          </div>
+        </div>
+        {eventos.length > 0 && (
+          <ol class="border-t-4 border-acento lg:col-span-8">
+            {eventos.map((e) => {
+              const f = partes(e.fecha);
+              return (
+                <li class="evento">
+                  <p class="evento-fecha">
+                    {f ? (
+                      <>
+                        <span class="evento-dia">{f.dia}</span>
+                        <span class="evento-mes">{f.mes}{f.anio && <span class="block opacity-70">{f.anio}</span>}</span>
+                      </>
+                    ) : (
+                      e.fecha && <span class="evento-mes">{e.fecha}</span>
+                    )}
+                  </p>
+                  <div class="min-w-0">
+                    {e.categoria && <span class="etiqueta">{e.categoria}</span>}
+                    <h3 class="mt-1 text-[1.45rem] leading-tight text-primario md:text-[1.75rem]">{e.titulo}</h3>
+                    {(e.lugar || e.hora || f?.resto) && (
+                      <p class="mt-3 flex flex-wrap gap-x-6 gap-y-1 text-[.95rem] opacity-85">
+                        {e.lugar && <span class="inline-flex items-center gap-2"><Icono nombre="mapa" tam={18} class="shrink-0 text-acento" />{e.lugar}</span>}
+                        {(e.hora || f?.resto) && <span class="inline-flex items-center gap-2"><Icono nombre="reloj" tam={18} class="shrink-0 text-acento" />{[f?.resto, e.hora].filter(Boolean).join(' · ')}</span>}
+                      </p>
+                    )}
+                  </div>
+                </li>
+              );
+            })}
+          </ol>
+        )}
+      </div>
+    </Seccion>
+  )
+}
+
+<style>
+  .evento { display: grid; grid-template-columns: 4.5rem 1fr; gap: 1.25rem; align-items: start; padding-block: 1.6rem; border-bottom: 1px solid var(--c-linea); }
+  @media (min-width: 768px) { .evento { grid-template-columns: 7.5rem 1fr; gap: 2.5rem; padding-block: 2rem; } }
+  .evento-fecha { display: flex; flex-direction: column; color: var(--c-primario); }
+  .evento-dia { font-family: var(--fuente-titulos); font-weight: 700; font-size: 3.1rem; line-height: .9; }
+  @media (min-width: 768px) { .evento-dia { font-size: 4.5rem; } }
+  .evento-mes { margin-top: .35rem; font-size: .75rem; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; color: var(--c-acento); }
+</style>

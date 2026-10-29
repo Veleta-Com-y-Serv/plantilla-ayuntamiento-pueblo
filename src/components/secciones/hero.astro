@@ -1,0 +1,84 @@
+---
+// Portada: foto del pueblo a sangre a casi toda la pantalla con velo oscuro, nombre del pueblo enorme en serif,
+// entradilla y dos botones; debajo, la franja de accesos rápidos a todo el ancho (items: titulo, texto, icono, url).
+// Sin foto, fondo verde hondo. Sin accesos, no hay franja.
+import { seccion } from '../../data/site';
+import { altHero } from '../../lib/seo';
+import Imagen from '../ui/Imagen.astro';
+import Icono from '../ui/Icono.astro';
+interface Props { id: string; primera?: boolean }
+const { id, primera = false } = Astro.props;
+const s = seccion(id);
+const accesos = (s?.items ?? []).filter((it) => it && it.titulo);
+---
+
+{
+  s && (
+    <section id={id} class="hero-pueblo">
+      <div class="sobre-foto relative isolate flex min-h-[88svh] items-end overflow-hidden text-white">
+        {s.imagen && <Imagen src={s.imagen} alt={altHero()} ancho={1920} alto={1080} prioridad={primera} class="absolute inset-0 -z-20 h-full w-full object-cover" />}
+        <div class="hero-velo absolute inset-0 -z-10" aria-hidden="true" />
+        <div class="contenedor w-full pb-12 pt-32 md:pb-20 md:pt-40">
+          {s.antetitulo && <p class="antetitulo">{s.antetitulo}</p>}
+          {s.titulo && <h1 class="hero-titulo mt-5">{s.titulo}</h1>}
+          {s.texto && <p class="mt-6 max-w-2xl text-lg leading-relaxed opacity-95 md:text-xl">{s.texto}</p>}
+          {(s.cta?.url || s.cta_secundario?.url) && (
+            <div class="mt-9 flex flex-wrap gap-3">
+              {s.cta?.url && <a class="btn" href={s.cta.url}>{s.cta.texto}</a>}
+              {s.cta_secundario?.url && <a class="btn-sec" href={s.cta_secundario.url}>{s.cta_secundario.texto}</a>}
+            </div>
+          )}
+        </div>
+      </div>
+      {accesos.length > 0 && (
+        <nav class="banda-primario" aria-label="Accesos rápidos">
+          <ul class:list={['accesos grid grid-cols-2', accesos.length >= 4 ? 'lg:grid-cols-4' : accesos.length === 3 ? 'lg:grid-cols-3' : '']}>
+            {accesos.map((it, i) => {
+              const dentro = (
+                <>
+                  <span class="accesos-icono" aria-hidden="true"><Icono nombre={it.icono} tam={26} /></span>
+                  <span class="min-w-0">
+                    <span class="accesos-titulo">{it.titulo}</span>
+                    {it.texto && <span class="accesos-texto">{it.texto}</span>}
+                  </span>
+                  {it.url && <span class="accesos-flecha" aria-hidden="true"><Icono nombre="flecha" tam={20} /></span>}
+                </>
+              );
+              return (
+                <li class:list={['accesos-celda', { 'accesos-celda--acento': i === 0 }]}>
+                  {it.url ? <a href={it.url} class="accesos-enlace">{dentro}</a> : <div class="accesos-enlace">{dentro}</div>}
+                </li>
+              );
+            })}
+          </ul>
+        </nav>
+      )}
+    </section>
+  )
+}
+
+<style>
+  .sobre-foto { background: color-mix(in srgb, var(--c-hondo) 70%, #000); }
+  .hero-velo {
+    background:
+      linear-gradient(to top, color-mix(in srgb, color-mix(in srgb, var(--c-hondo) 55%, #000) 92%, transparent) 0%, color-mix(in srgb, color-mix(in srgb, var(--c-hondo) 55%, #000) 55%, transparent) 48%, rgb(0 0 0 / .12) 100%),
+      linear-gradient(to right, rgb(0 0 0 / .35), transparent 70%);
+  }
+  .hero-titulo { font-size: clamp(2.75rem, 9.5vw, 7.25rem); line-height: .95; letter-spacing: -0.02em; max-width: 14ch; text-wrap: balance; }
+  .accesos-celda { border-bottom: 1px solid var(--c-linea); border-right: 1px solid var(--c-linea); }
+  .accesos-celda:nth-child(2n) { border-right: 0; }
+  @media (min-width: 1024px) {
+    .accesos-celda { border-bottom: 0; }
+    .accesos-celda:nth-child(2n) { border-right: 1px solid var(--c-linea); }
+    .accesos-celda:last-child { border-right: 0; }
+  }
+  .accesos-celda--acento { background: var(--c-acento); color: var(--c-sobre-acento); }
+  .accesos-enlace { display: flex; height: 100%; min-height: 6rem; flex-direction: column; gap: .75rem; padding: 1.1rem 1rem 1.25rem; text-decoration: none; position: relative; transition: background-color .15s ease; }
+  a.accesos-enlace:hover { background: color-mix(in srgb, currentColor 8%, transparent); }
+  @media (min-width: 768px) { .accesos-enlace { flex-direction: row; align-items: center; gap: 1.1rem; padding: 1.75rem 2rem; } }
+  .accesos-icono { display: grid; place-items: center; width: 2.75rem; height: 2.75rem; flex-shrink: 0; border: 1.5px solid color-mix(in srgb, currentColor 45%, transparent); border-radius: 50%; }
+  .accesos-titulo { display: block; font-family: var(--fuente-titulos); font-size: 1.2rem; font-weight: 700; line-height: 1.15; }
+  .accesos-texto { display: block; margin-top: .2rem; font-size: .88rem; opacity: .8; line-height: 1.35; }
+  .accesos-flecha { display: none; margin-left: auto; flex-shrink: 0; }
+  @media (min-width: 768px) { .accesos-flecha { display: block; } }
+</style>
