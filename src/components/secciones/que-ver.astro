@@ -1,9 +1,12 @@
 ---
 // Qué ver: banda verde hondo; titular dentro del ancho de lectura y, debajo, mosaico de lugares de borde a borde
 // de la ventana, sin márgenes: el primero grande (2×2 en escritorio) y el resto en rejilla, con el nombre y el texto
-// sobre la foto. Cada lugar: {nombre, texto, imagen}. Sin foto, el lugar va sobre color pleno. Botón opcional (cta).
+// sobre la foto. Cada lugar: {nombre, texto, imagen, detalle}; los lugares con `detalle` tienen página propia
+// (/que-ver/<lugar>/) y su recuadro entero es un enlace. Sin foto, el lugar va sobre color pleno. Botón opcional (cta).
 import { seccion } from '../../data/site';
 import { altFicha } from '../../lib/seo';
+import { enlaceDe } from '../../lib/paginas';
+import Icono from '../ui/Icono.astro';
 import Titular from '../ui/Titular.astro';
 import Imagen from '../ui/Imagen.astro';
 interface Props { id: string }
@@ -44,8 +47,9 @@ const clases = (i: number) => {
               <div class="lugar-velo absolute inset-0 -z-10" aria-hidden="true" />
               <div class="absolute inset-x-0 bottom-0 p-5 text-white md:p-8">
                 <span class="lugar-numero" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
-                <h3 class:list={['mt-2 leading-tight', i === 0 && n > 1 ? 'text-[clamp(1.8rem,3.4vw,3rem)]' : 'text-[1.6rem]']}>{l.nombre}</h3>
+                <h3 class:list={['mt-2 leading-tight', i === 0 && n > 1 ? 'text-[clamp(1.8rem,3.4vw,3rem)]' : 'text-[1.6rem]']}>{enlaceDe(l) ? <a href={enlaceDe(l)} class="lugar-enlace">{l.nombre}</a> : l.nombre}</h3>
                 {l.texto && <p class="mt-2 max-w-xl text-[.97rem] leading-snug opacity-90">{l.texto}</p>}
+                {enlaceDe(l) && <span class="lugar-ver" aria-hidden="true">Ver más <Icono nombre="flecha" tam={16} /></span>}
               </div>
             </li>
           ))}
@@ -58,6 +62,10 @@ const clases = (i: number) => {
 <style>
   .lugar { background: color-mix(in srgb, var(--c-acento) 70%, #000); }
   .lugar-velo { background: linear-gradient(to top, rgb(0 0 0 / .78), rgb(0 0 0 / .25) 55%, rgb(0 0 0 / 0) 80%); }
+  .lugar-enlace { color: inherit; text-decoration: none; }
+  .lugar-enlace::after { content: ""; position: absolute; inset: 0; z-index: 1; }
+  .lugar-enlace:focus-visible { outline: 3px solid #fff; outline-offset: -6px; }
+  .lugar-ver { display: inline-flex; align-items: center; gap: .4rem; margin-top: .75rem; font-size: .8rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
   .lugar-foto { transition: transform .6s ease; }
   .lugar:hover .lugar-foto { transform: scale(1.04); }
   .lugar-numero { font-size: .75rem; font-weight: 800; letter-spacing: .18em; padding-bottom: .25rem; border-bottom: 3px solid var(--c-acento); }

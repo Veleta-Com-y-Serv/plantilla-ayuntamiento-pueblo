@@ -55,3 +55,8 @@ medieval cercana).
 - Volver a la caja centrada estrecha con tarjetas blancas o al hero partido con collage de la base `asociacion`.
 - Poner datos reales de un ayuntamiento existente: el ejemplo es un municipio ficticio.
 - Hablar de la técnica en los textos de la web.
+
+## Páginas propias (fichas)
+Con la misma piel que la portada: cabecera y pie de la plantilla, migas (Inicio › Sección › Elemento), hero con la foto del
+elemento (sin foto, su icono), `detalle` en párrafos, tabla de datos, caja de contacto, galería (`imagenes`) y otros elementos
+de la misma lista.

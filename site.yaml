@@ -109,11 +109,52 @@ secciones:
     titulo: Un día en Peñarrubia y sus alrededores
     texto: "Rincones para recorrer a pie, miradores y naturaleza a dos pasos. Pide el plano en la oficina de turismo."
     lugares:
-      - { nombre: Casco antiguo, texto: "Calles empedradas, casas de entramado y aleros de madera tallada que casi se tocan.", imagen: /fotos/lugar-1.jpg }
-      - { nombre: Iglesia de San Bartolomé, texto: "Torre de piedra rodena y retablo barroco. Visitas los domingos tras la misa.", imagen: /fotos/lugar-2.jpg }
-      - { nombre: Mirador de la Peña Roja, texto: "A diez minutos andando: todo el valle a tus pies, mejor al atardecer.", imagen: /fotos/lugar-3.jpg }
-      - { nombre: Pinares de rodeno, texto: "Senderos señalizados entre pinos y abrigos con pinturas rupestres.", imagen: /fotos/lugar-4.jpg }
-      - { nombre: Fuente y lavadero, texto: "Del siglo XIX, restaurados por los vecinos. Agua fresca todo el año.", imagen: /fotos/lugar-5.jpg }
+      - nombre: Casco antiguo
+        texto: "Calles empedradas, casas de entramado y aleros de madera tallada que casi se tocan."
+        imagen: /fotos/lugar-1.jpg
+        imagenes: "/fotos/lugar-5.jpg; /fotos/pueblo.jpg"
+        detalle: |
+          El casco antiguo de Peñarrubia se recorre despacio y a pie. Las calles son estrechas, de piedra rodena, y suben y bajan siguiendo la ladera, de modo que cada esquina abre una vista distinta del valle. Las casas conservan su entramado de madera y esos aleros tallados que, en las calles más angostas, casi se tocan por encima de tu cabeza.
+
+          Lo mejor es empezar en la Plaza Mayor, donde está el Ayuntamiento, y dejarse llevar por las callejas que salen hacia el barrio alto. Por el camino verás portales con dintel de piedra, rejas de forja, escudos antiguos y macetas que los vecinos cuidan con mimo. Muchas fachadas se han rehabilitado con materiales tradicionales gracias a las ayudas municipales.
+
+          Conviene llevar calzado cómodo, porque el empedrado es irregular y con lluvia resbala. No hace falta guía: basta con un plano de la oficina y ganas de mirar hacia arriba. Es un pueblo vivo, así que te pedimos hablar bajo en los rincones donde hay casas habitadas y no entrar en patios privados.
+      - nombre: Iglesia de San Bartolomé
+        texto: "Torre de piedra rodena y retablo barroco. Visitas los domingos tras la misa."
+        imagen: /fotos/lugar-2.jpg
+        detalle: |
+          La iglesia de San Bartolomé domina la parte alta del pueblo con su torre de piedra rodena, que cambia de color según la hora: ocre al mediodía y casi roja al atardecer. Es el edificio más reconocible de Peñarrubia y el punto de encuentro de las fiestas más importantes del año.
+
+          Por dentro guarda un retablo barroco de madera dorada, restaurado hace poco con el esfuerzo de los vecinos y la ayuda del Ayuntamiento. Merece la pena detenerse en los detalles de las imágenes talladas y en la sencillez de la nave, de una sola planta y con una luz muy suave.
+
+          La iglesia se puede visitar los domingos al terminar la misa. Si quieres verla otro día, pregunta en la oficina y te indicaremos quién tiene la llave. Pedimos respeto durante los actos religiosos y que no se utilicen flashes dentro del templo.
+      - nombre: Mirador de la Peña Roja
+        texto: "A diez minutos andando: todo el valle a tus pies, mejor al atardecer."
+        imagen: /fotos/lugar-3.jpg
+        detalle: |
+          El mirador de la Peña Roja es el mejor sitio para entender el paisaje de la sierra. Desde el borde de la peña se ve el valle entero: los tejados del pueblo, los pinares de rodeno, los campos de labor y, al fondo, las montañas que cierran el horizonte.
+
+          Se llega andando desde el pueblo por un camino sencillo y señalizado, a unos diez minutos, apto para casi todo el mundo. El último tramo es de tierra y piedra suelta, así que conviene llevar calzado con suela firme. Hay un banco de piedra para sentarse y un panel que explica qué se ve en cada dirección.
+
+          La hora ideal es el atardecer, cuando la roca se tiñe de rojo y el valle se llena de sombras largas. En verano, lleva agua y algo de abrigo para la vuelta. Por seguridad, no te acerques al borde ni dejes que los niños corran por la zona del precipicio.
+      - nombre: Pinares de rodeno
+        texto: "Senderos señalizados entre pinos y abrigos con pinturas rupestres."
+        imagen: /fotos/lugar-4.jpg
+        detalle: |
+          Los pinares de rodeno rodean el pueblo y son el paisaje que más define a Peñarrubia: pinos de tronco rojizo sobre una arenisca de formas caprichosas, con rocas que parecen esculpidas por el viento y el agua. Es un lugar para caminar sin prisa y con los ojos abiertos.
+
+          Hay varios senderos señalizados, de dificultad baja o media, que parten desde la fuente del pueblo. En algunos tramos se pasa junto a abrigos de roca con pinturas rupestres de gran valor. Están protegidas, así que se miran y se fotografían a distancia, sin tocar la pared ni dejar nada en el suelo.
+
+          Es una zona de especial protección: no se puede encender fuego, acampar ni recoger piedras o plantas. Lleva agua, gorra en verano y bolsa para tus residuos. En la oficina te daremos un plano con las rutas y te avisaremos si hay algún tramo cortado por obras o por el tiempo.
+      - nombre: Fuente y lavadero
+        texto: "Del siglo XIX, restaurados por los vecinos. Agua fresca todo el año."
+        imagen: /fotos/lugar-5.jpg
+        detalle: |
+          La fuente y el lavadero cubierto son uno de los rincones más queridos del pueblo. Durante generaciones fueron el lugar donde se recogía el agua y se lavaba la ropa, y también donde se contaban las noticias del día. Hoy siguen siendo punto de encuentro y la salida de varias rutas.
+
+          Los restauraron los propios vecinos, piedra a piedra, con la ayuda del Ayuntamiento, y mantienen el aspecto de su época: pilas de piedra, tejado de madera y un caño por el que sale agua fresca incluso en pleno verano. Es un buen sitio para rellenar la cantimplora antes de salir a caminar.
+
+          En invierno el lavadero cubierto acoge el mercadillo de artesanos de la sierra y otras actividades de la agenda. Si pasas por aquí, deja el entorno limpio y evita ensuciar el agua, porque la usamos entre todos.
       - { nombre: Albarracín, texto: "A 9 km por carretera: murallas, catedral y callejuelas para perderse.", imagen: /fotos/lugar-6.jpg }
     cta: { texto: Pide el plano del pueblo, url: "/#contacto" }
 
