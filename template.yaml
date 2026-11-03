@@ -21,7 +21,7 @@ secciones:
   - { id: contacto, nombre: Contacto }
 estilo: institucional
 plan_minimo: presencia
-version: 1.2.0
+version: 1.2.1
 base: astrowind
 demo_url: https://demo-plantilla-ayuntamiento-pueblo.noexpertise.com
 activa: true
@@ -32,10 +32,10 @@ fichas:
   - { lista: que-ver, campo: lugares, ruta: que-ver, nombre: Lugar, tipo: TouristAttraction }
 
 # Varias páginas (docs/plantillas.md § Varias páginas): reparto recomendado al activar «Varias páginas».
-# Inicio se queda con la portada y lo que no esté en ninguna página (aquí, actualidad, agenda).
+# Inicio se queda con la portada y lo que no esté en ninguna página (aquí, actualidad, agenda, el pueblo).
 paginas:
-  - { ruta: el-pueblo, titulo: El pueblo, secciones: "pueblo; que-ver" }
-  - { ruta: tramites, titulo: Trámites, secciones: "tramites; servicios; horario" }
+  - { ruta: que-ver, titulo: Qué ver, secciones: "que-ver; servicios" }
+  - { ruta: tramites, titulo: Trámites, secciones: "tramites; horario" }
   - { ruta: contacto, titulo: Contacto, secciones: "preguntas; contacto" }
 
 # Asistente de puesta en marcha (NoExpertise): un paso por pantalla. Rutas del site sin índices;
