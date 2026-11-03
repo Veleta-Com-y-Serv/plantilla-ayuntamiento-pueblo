@@ -8,6 +8,7 @@ Bandas a todo el ancho en verde institucional, piedra y rojo rodeno, foto del pu
 - Listas propias: `agenda.eventos` {fecha, titulo, lugar, hora, categoria}, `que-ver.lugares` {nombre, texto, imagen}; `noticias` con `categoria` e `imagen`; `hero.items` y `tramites.items` con `url`.
 - Ejemplo: Ayuntamiento de Peñarrubia, municipio ficticio de la Sierra de Albarracín (Teruel); teléfonos y datos de muestra.
 - SEO de base incluido (`src/lib/seo.ts`): canónica, og:image, JSON-LD (`GovernmentOffice`) y de las preguntas frecuentes, `robots.txt`, `sitemap.xml` y `llms.txt`; `noindex` si `seo.indexable: false`.
+- Varias páginas (opcional, `paginas:` en la raíz de `site.yaml`): Inicio + una página por entrada (`{ ruta, titulo, secciones: "a; b" }`, hasta 6) con el menú hecho solo; reparto recomendado en `template.yaml → paginas`. Sin la clave, una sola página larga.
 - Contenido editable en `site.yaml`; metadatos y guion del asistente en `template.yaml`; fotos a generar en `fotos.json`; reglas para el agente en `CLAUDE.md`; brief de diseño en `DISEÑO.md`.
 
 ```

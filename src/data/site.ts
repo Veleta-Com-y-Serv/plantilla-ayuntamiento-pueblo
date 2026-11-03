@@ -2,6 +2,7 @@
 // Es la única fuente de contenido: textos, colores, contacto, menú y secciones.
 // Listas propias de esta plantilla: `eventos` (agenda) y `lugares` (qué ver); `noticias` admite categoría y foto.
 import datos from '../../site.yaml';
+import { conPaginas } from '../lib/multipagina';
 
 export interface Enlace { texto: string; url: string }
 export interface Item { titulo: string; texto?: string; icono?: string; imagen?: string; url?: string }
@@ -54,7 +55,7 @@ export interface Site {
 }
 
 type Crudo = Record<string, any>;
-const d = (datos ?? {}) as Crudo;
+const d = conPaginas((datos ?? {}) as Crudo);
 function lista<T>(v: unknown): T[] {
   return Array.isArray(v) ? (v.filter(Boolean) as T[]) : [];
 }
